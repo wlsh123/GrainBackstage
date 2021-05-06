@@ -32,6 +32,7 @@ const NormalLoginForm = () => {
                 message: '用户名不能为空！',
               },
             ]}
+            initialValue=''
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -41,6 +42,7 @@ const NormalLoginForm = () => {
           </Form.Item>
           <Form.Item
             name="password"
+            initialValue=''
             rules={[
               {
                 required: true,
