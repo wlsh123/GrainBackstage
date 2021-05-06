@@ -1,11 +1,20 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { reqLogin } from "../../api/index";
 import "./login.less";
 // 登录的路由组件
 const NormalLoginForm = () => {
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    console.log("Received values of form: ", values);
+    const { username, password } = values;
+    reqLogin(username, password)
+      .then((response) => {
+        console.log("成功了", response.data);
+      })
+      .catch((error) => {
+        console.log("失败了", error);
+      });
   };
   return (
     <div className="login">
@@ -19,7 +28,7 @@ const NormalLoginForm = () => {
           name="normal_login"
           className="login-form"
           initialValues={{
-            remember: true,
+            remember: false,
           }}
           onFinish={onFinish}
         >
@@ -28,44 +37,42 @@ const NormalLoginForm = () => {
             rules={[
               {
                 required: true,
-                whitespace:true,
-                message: '用户名不能为空！',
+                whitespace: true,
+                message: "用户名不能为空！",
               },
             ]}
-            initialValue=''
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Username"
-              style={{ color: 'rgba(0, 0, 0, .25)' }}
+              style={{ color: "rgba(0, 0, 0, .25)" }}
             />
           </Form.Item>
           <Form.Item
             name="password"
-            initialValue=''
             rules={[
               {
                 required: true,
-                whitespace:true,
-                message: '密码不能为空！',
+                whitespace: true,
+                message: "密码不能为空！",
               },
               {
                 min: 4,
-                message: '密码不能低于4位！',
+                message: "密码不能低于4位！",
               },
               {
                 max: 12,
-                message: '密码不能超过12位！',
+                message: "密码不能超过12位！",
               },
               {
                 pattern: /^[a-zA-Z0-9_]+$/,
-                message: '密码只能由字母、数字或下划线组成！',
+                message: "密码只能由字母、数字或下划线组成！",
               },
             ]}
           >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
-              style={{ color: 'rgba(0, 0, 0, .25)' }}
+              style={{ color: "rgba(0, 0, 0, .25)" }}
               type="password"
               placeholder="Password"
             />
@@ -77,18 +84,22 @@ const NormalLoginForm = () => {
 
             <a className="login-form-forgot" href="">
               Forgot password
-        </a>
+            </a>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
               登录
-              </Button>
-              Or <a href="">register now!</a>
+            </Button>
+            Or <a href="">register now!</a>
           </Form.Item>
         </Form>
       </section>
     </div>
   );
-}
+};
 export default NormalLoginForm;
