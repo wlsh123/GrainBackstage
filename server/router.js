@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router();
+const data = require('./data/login')
 
 router.post('/login', (req, res) => {
   console.log(req.body)
   let {username, password} = req.body
   if (username && password) {
-    res.send('登录成功')
+    res.send(data.loginSuccess)
   } else {
-    res.send('登录失败')
+    res.send(data.loginError)
   }
 })
 
