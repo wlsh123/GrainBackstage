@@ -1,25 +1,34 @@
-const express = require('express')
+const express = require("express");
 const router = express.Router();
-const data = require('./data/login')
+const data = require("./data/login");
 
-router.post('/login', (req, res) => {
-  console.log(req.body)
-  let {username, password} = req.body
+router.post("/login", (req, res) => {
+  // console.log(req.body);
+  let { username, password } = req.body;
   if (username && password) {
-    res.send(data.loginSuccess)
+    let response = {
+      status: 0,
+      data: {
+        username: username,
+        password: password,
+      },
+    };
+    res.send(response);
   } else {
-    res.send(data.loginError)
+    res.send({
+      status: 1,
+      msg: "用户名或密码错误",
+    });
   }
-})
+});
 
-
-router.post('/register', (req, res) => {
-  console.log(req.body)    
-  let { name, age } = req.body
-  if (name === 'zs' && age === "12") {
-    res.send('注册成功')
+router.post("/register", (req, res) => {
+  console.log(req.body);
+  let { name, age } = req.body;
+  if (name === "zs" && age === "12") {
+    res.send("注册成功");
   } else {
-    res.send('注册失败');
+    res.send("注册失败");
   }
-})
+});
 module.exports = router;

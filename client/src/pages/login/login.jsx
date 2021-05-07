@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { reqLogin } from "../../api/index";
+import memoryUtils from "../../utils/memoryUtils";
 import "./login.less";
 // 登录的路由组件
 const NormalLoginForm = () => {
@@ -14,11 +15,12 @@ const NormalLoginForm = () => {
     // console.log('请求成功', response.data);
     if (response.data.status === 0) {
       //登录成功 {status:0,data:''}
-      message.success('登录成功')
-      // this.props.history.replace('/')
+      message.success("登录成功");
+      memoryUtils.user = values;
+      window.location.href = "/";
     } else {
       //登录失败 {status:1,msg:''}
-      message.error(response.data.msg)
+      message.error(response.data.msg);
     }
   };
   return (
