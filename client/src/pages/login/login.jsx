@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { reqLogin } from "../../api/index";
+import logo from '../../assets/images/logo.png';
 import memoryUtils from "../../utils/memoryUtils";
 import storageUtils from '../../utils/storageUtils';
 import "./login.less";
@@ -26,7 +27,7 @@ const NormalLoginForm = () => {
   return (
     <div className="login">
       <header className="login-header">
-        <img src="https://static.ygyg.cn/static/brand/sso-web/yunadmin/logo.png" />
+        <img src={logo} alt="logo" />
         <h1>谷粒-后台管理系统</h1>
       </header>
       <section className="login-content">
