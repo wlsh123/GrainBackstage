@@ -3,25 +3,25 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { reqLogin } from "../../api/index";
 import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from '../../utils/storageUtils';
 import "./login.less";
 // 登录的路由组件
 const NormalLoginForm = () => {
-  const onFinish = async (values) => {
-    // console.log("Received values of form: ", values);
+  const onFinish = (values) => {
     const { username, password } = values;
-    //使用async和await替代promise，不用使用then（）来指定回调。
-    //以同步编码方式实现异步流程
-    const response = await reqLogin(username, password);
-    // console.log('请求成功', response.data);
-    if (response.data.status === 0) {
-      //登录成功 {status:0,data:''}
-      message.success("登录成功");
-      memoryUtils.user = values;
-      window.location.href = "/";
-    } else {
-      //登录失败 {status:1,msg:''}
-      message.error(response.data.msg);
-    }
+    reqLogin(username, password).then((response) => {
+      console.log(response.data);
+      if (response.data.status === 0) {
+        //登录成功 {status:0,data:''}
+        message.success("登录成功");
+        // memoryUtils.user = response.data; //保存到内存中（弃用）
+        storageUtils.saveUser(response.data);//保存到localStorage中
+        window.location.href = "/";
+      } else {
+        //登录失败 {status:1,msg:''}
+        message.error(response.data.msg);
+      }
+    })
   };
   return (
     <div className="login">

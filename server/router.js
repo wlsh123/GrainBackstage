@@ -7,11 +7,11 @@ router.post("/login", (req, res) => {
   let { username, password } = req.body;
   if (username && password) {
     let response = {
-      status: 0,
-      data: {
-        username: username,
-        password: password,
-      },
+      "status": 0,
+      "data": {
+        "username": username,
+        "password": password,
+      }
     };
     res.send(response);
   } else {
