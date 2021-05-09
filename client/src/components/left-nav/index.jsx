@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import logo from "../../assets/images/logo.png";
 import menuList from '../../config/menuConfig.js';
 import "./style.less";
@@ -35,7 +35,7 @@ class LeftNav extends Component {
       }
     })
   }
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     this.menuNodes = this.getMenuNodes(menuList)
   }
   render() {

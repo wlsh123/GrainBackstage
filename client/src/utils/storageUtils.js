@@ -2,7 +2,7 @@
     进行local数据存储管理的工具模块
 */
 const USER_KEY = 'user_key';
-export default {
+const storageUtils = {
   saveUser(user) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   },
@@ -14,4 +14,5 @@ export default {
   removeUser() {
     localStorage.removeItem(USER_KEY);
   },
-};
+}
+export default storageUtils;

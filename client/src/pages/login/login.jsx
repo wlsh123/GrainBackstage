@@ -3,8 +3,9 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { reqLogin } from "../../api/index";
 import logo from '../../assets/images/logo.png';
-import memoryUtils from "../../utils/memoryUtils";
+// import memoryUtils from "../../utils/memoryUtils";
 import storageUtils from '../../utils/storageUtils';
+import LinkButton from '../../components/link-button';
 import "./login.less";
 // 登录的路由组件
 const NormalLoginForm = () => {
@@ -90,9 +91,9 @@ const NormalLoginForm = () => {
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <a className="login-form-forgot" href="">
+            <LinkButton className="login-form-forgot">
               Forgot password
-            </a>
+            </LinkButton>
           </Form.Item>
 
           <Form.Item>
@@ -103,7 +104,7 @@ const NormalLoginForm = () => {
             >
               登录
             </Button>
-            Or <a href="">register now!</a>
+            Or <LinkButton href="">register now!</LinkButton>
           </Form.Item>
         </Form>
       </section>
