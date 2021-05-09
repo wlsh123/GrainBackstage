@@ -1,47 +1,68 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Menu, Button } from "antd";
-import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
 import logo from "../../assets/images/logo.png";
+import menuList from '../../config/menuConfig.js';
 import "./style.less";
 class LeftNav extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }    
+
+  getMenuNodes = (menuList)=>{
+    const { SubMenu } = Menu;
+    const path = this.props.location.pathname;
+    return menuList.map(item =>{
+      if (!item.children){
+        return (
+          <Menu.Item key={item.key} icon={item.icon}>
+            <Link to={item.key} >
+              {item.title}
+            </Link>
+          </Menu.Item>
+        )
+      }else{
+        const cItem = item.children.find(cItem => cItem.key === path)
+        if (cItem) {
+          this.openKey = item.key
+        }
+        return (
+          <SubMenu key={item.key} icon={item.icon} title={item.title}>
+            {this.getMenuNodes(item.children)}
+          </SubMenu>
+        )
+      }
+    })
+  }
+  componentWillMount(){
+    this.menuNodes = this.getMenuNodes(menuList)
   }
   render() {
-    const { SubMenu } = Menu;
+    const path = this.props.location.pathname;
+    // console.log(path)
+    const openKey = this.openKey
     return (
       <div className="left-nav">
         <Link to="/" className="left-nav-header">
           <img src={logo} alt="logo" />
         </Link>
         <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          defaultSelectedKeys={["path"]}
+          defaultOpenKeys={[openKey]}
+          selectedKeys={[path]}
           mode="inline"
           theme="dark"
-          inlineCollapsed={this.state.collapsed}
         >
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            首页
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<MailOutlined />} title="商品">
-            <Menu.Item key="5">品类管理</Menu.Item>
-            <Menu.Item key="6">商品管理</Menu.Item>
-          </SubMenu>
+          {this.menuNodes}
         </Menu>
       </div>
     );
   }
 }
-
-export default LeftNav;
+/*
+withRouter高阶组件：
+包装非路由组件，返回一个新的组件
+新组件向非路由组件传递3个属性：history/location/match
+*/
+export default withRouter(LeftNav);
