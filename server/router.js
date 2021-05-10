@@ -31,6 +31,48 @@ router.get(categoryBase + "/list", (req, res) => {
     res.send("接口请求出错");
   }
 });
+router.post(categoryBase +"/update",(req,res)=>{
+  const { categoryId, categoryName } = req.body
+  const data1 = category.data1;
+  const data2 = category.data2;
+  data1.forEach(item=>{
+    if (item._id === categoryId){
+      item.name = categoryName
+    }
+  })
+  data2.forEach(item => {
+    if (item._id === categoryId) {
+      item.name = categoryName
+    }
+  })
+  res.send(category)
+})
+router.post(categoryBase+"/add",(req,res)=>{
+  const { categoryName, parentId} = req.body
+  if (parentId === '0') {
+    //添加一级类目
+    const data1 = category.data1;
+    const newCategory = {
+      "parentId": parentId,
+      "_id": (Math.random()*10).toString(),
+      name: categoryName,
+      _v: 0,
+    }
+    data1.unshift(newCategory)
+    res.send(category)
+  }else{
+    //添加二级类目
+    const data2 = category.data2;
+    const newCategory = {
+      "parentId": parentId,
+      "_id": (Math.random() * 100).toString(),
+      name: categoryName,
+      _v: 0,
+    }
+    data2.unshift(newCategory)
+    res.send(category)
+  }
+})
 router.post("/register", (req, res) => {
   console.log(req.body);
   let { name, age } = req.body;

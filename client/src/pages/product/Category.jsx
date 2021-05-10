@@ -105,18 +105,22 @@ class Category extends Component {
       showStatus: 2,
     });
   };
-  //更新分类
-  updateCategory = () => {
+  //修改分类
+  updateCategory = async () => {
     //1.隐藏确定框
     this.setState({
       showStatus: 0,
     });
+    const categoryId = this.category._id;
+    // const categoryName = this.form.getFieldValue('categoryName');
+    const categoryName = 'ass'
     //2.发请求更新数据
-    const result = reqUpdateCategory({ categoryId, categoryName });
-    if (result.status === 0) {
-      //3.重新显示列表
-      this.getCategory();
+    const result = await reqUpdateCategory({ categoryId, categoryName });
+    if (result.data.status === 0) {
+     
     }
+    //3.重新显示列表
+    this.getCategory();
   };
   //为第一次render准备数据
   UNSAFE_componentWillMount() {
@@ -181,7 +185,7 @@ class Category extends Component {
             onOk={this.updateCategory}
             onCancel={this.handleCancel}
           >
-            <UpdateForm categoryName={category.name} />
+            <UpdateForm categoryName={category.name} setForm={(form)=>{this.form = form}}/>
           </Modal>
         </Card>
       </div>
