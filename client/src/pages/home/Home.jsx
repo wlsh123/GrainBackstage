@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.less'
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -6,7 +7,7 @@ class Home extends Component {
   }
   render() { 
     return ( 
-      <div>Home</div>
+      <div className="home">欢迎使用谷粒后台管理系统</div>
      );
   }
 }
