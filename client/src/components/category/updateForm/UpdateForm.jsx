@@ -3,9 +3,6 @@ import { Form, Input } from "antd";
 import { PropTypes } from 'prop-types'
 // 修改类目的标签
 class UpdateForm extends Component {
-  constructor(props){
-    super(props);
-  }
   static propTypes = {
     categoryName:PropTypes.string,
   }
@@ -19,7 +16,7 @@ class UpdateForm extends Component {
         <Form.Item label="分类名称">
           <Form.Item
             noStyle
-            rules={[{ required: true, message: "Province is required" }]}
+            rules={[{ required: true, message: "分类名称是必填" }]}
             name="categoryName"
             initialValue={categoryName}
           >

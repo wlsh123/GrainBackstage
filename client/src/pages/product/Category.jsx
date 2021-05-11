@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Table, message, Modal } from "antd";
 import { PlusOutlined, RightOutlined } from "@ant-design/icons";
 import LinkButton from "../../components/link-button";
-import { reqCategoryList, reqUpdateCategory } from "../../api/index";
+import { reqAddCategory, reqCategoryList, reqUpdateCategory } from "../../api/index";
 import AddForm from "../../components/category/addForm/AddForm";
 import UpdateForm from "../../components/category/updateForm/UpdateForm";
 class Category extends Component {
@@ -86,7 +86,7 @@ class Category extends Component {
   };
   //响应点击取消：隐藏确认框
   handleCancel = () => {
-    this.form.setFieldsValue('')
+    this.form.setFieldsValue({ categoryName: this.categoryName });
     this.setState({
       showStatus: 0,
     });
@@ -98,7 +98,16 @@ class Category extends Component {
     });
   };
   //添加分类
-  addCategory = () => {};
+  addCategory = async () => {
+    this.setState({
+      showStatus:0
+    })
+   const {parentId, categoryName} = this.form.getFieldValue();
+   const result = await reqAddCategory(categoryName,parentId)
+   if (result.data.status === 0) {
+     this.getCategory()
+   }
+  };
   //显示修改的确认框
   showUpdate = (category) => {
     this.category = category;
@@ -115,7 +124,7 @@ class Category extends Component {
     const categoryId = this.category._id;
     const categoryName = this.form.getFieldValue('categoryName');
     // console.log(this.form.getFieldValue('categoryName'))
-    this.form.setFieldsValue('')
+    this.form.setFieldsValue({categoryName:categoryName});
     //2.发请求更新数据
     const result = await reqUpdateCategory({ categoryId, categoryName });
     if (result.data.status === 0) {
@@ -178,7 +187,7 @@ class Category extends Component {
             onOk={this.addCategory}
             onCancel={this.handleCancel}
           >
-            <AddForm />
+            <AddForm categorys={categorys} parentId={parentId} formValue={(e) => { this.form = e }}/>
           </Modal>
           <Modal
             title="更新分类"
