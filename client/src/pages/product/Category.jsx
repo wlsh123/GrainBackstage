@@ -112,15 +112,14 @@ class Category extends Component {
       showStatus: 0,
     });
     const categoryId = this.category._id;
-    // const categoryName = this.form.getFieldValue('categoryName');
-    const categoryName = 'ass'
+    const categoryName = this.form.getFieldValue('categoryName');
+    console.log(this.form.getFieldValue('categoryName'))
     //2.发请求更新数据
     const result = await reqUpdateCategory({ categoryId, categoryName });
     if (result.data.status === 0) {
-     
+      //3.重新显示列表
+      this.getCategory();
     }
-    //3.重新显示列表
-    this.getCategory();
   };
   //为第一次render准备数据
   UNSAFE_componentWillMount() {
@@ -185,7 +184,7 @@ class Category extends Component {
             onOk={this.updateCategory}
             onCancel={this.handleCancel}
           >
-            <UpdateForm categoryName={category.name} setForm={(form)=>{this.form = form}}/>
+            <UpdateForm categoryName={category.name} formValue={(e)=>{this.form = e}}/>
           </Modal>
         </Card>
       </div>
