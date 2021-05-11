@@ -86,6 +86,7 @@ class Category extends Component {
   };
   //响应点击取消：隐藏确认框
   handleCancel = () => {
+    this.form.setFieldsValue('')
     this.setState({
       showStatus: 0,
     });
@@ -113,7 +114,8 @@ class Category extends Component {
     });
     const categoryId = this.category._id;
     const categoryName = this.form.getFieldValue('categoryName');
-    console.log(this.form.getFieldValue('categoryName'))
+    // console.log(this.form.getFieldValue('categoryName'))
+    this.form.setFieldsValue('')
     //2.发请求更新数据
     const result = await reqUpdateCategory({ categoryId, categoryName });
     if (result.data.status === 0) {
