@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import { Form, Select, Input } from "antd";
+import { PropTypes} from 'prop-types';
 // 添加类目的标签
 const { Option } = Select;
 class AddForm extends Component {
+  static propTypes = {
+    categorys: PropTypes.array.isRequired,
+    parentId:PropTypes.string.isRequired,
+  }
   render() {
+    const {categorys, parentId} = this.props;
     return (
-      <Form>
+      <Form ref={this.props.formValue}>
         <Form.Item label="所属类目">
           <Form.Item
             name={["address", "province"]}
             noStyle
-            initialValue="0"
+            initialValue={parentId}
             rules={[{ required: true, message: "Province is required" }]}
           >
             <Select
@@ -20,9 +26,9 @@ class AddForm extends Component {
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
-              <Option value="0">一级分类</Option>
-              <Option value="1">电器</Option>
-              <Option value="2">家具</Option>
+              {
+                categorys.map(c => <Option value={c._id} key={Math.random()*100}>{c.name}</Option>)  
+              }
             </Select>
           </Form.Item>
         </Form.Item>

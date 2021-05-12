@@ -14,7 +14,11 @@ class UpdateForm extends Component {
         <Form.Item label="分类名称">
           <Form.Item
             noStyle
+<<<<<<< HEAD
             rules={[{ required: true, message: "请填写分类名称" }]}
+=======
+            rules={[{ required: true, message: "分类名称是必填" }]}
+>>>>>>> 8ecea80a2b77ba47224c781d1f23260ea6736a04
             name="categoryName"
           >
             <Input placeholder="请输入分类名称"></Input>
