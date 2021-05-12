@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {Switch, Route, Redirect} from 'react-router-dom';
+import ProductDetail from './product/ProductDetail';
+import ProductEdit from './product/ProductEdit';
+import ProductHome from './product/ProductHome';
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -6,7 +10,12 @@ class Product extends Component {
   }
   render() { 
     return ( 
-      <div>Product</div>
+      <Switch>
+        <Route path="/product" exact component={ProductHome}></Route>
+        <Route path="/product/edit" component={ProductEdit}></Route>
+        <Route path="/product/detail" component={ProductDetail}></Route>
+        <Redirect to="/product" />
+      </Switch>
      );
   }
 }
