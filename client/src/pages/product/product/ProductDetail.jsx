@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {};
   }
-  render() { 
-    return ( 
-      <div>ProductDetail</div>
-     );
+  render() {
+    return <div>ProductDetail</div>;
   }
 }
- 
+
 export default ProductDetail;
