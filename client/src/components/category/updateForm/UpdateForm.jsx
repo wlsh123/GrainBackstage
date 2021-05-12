@@ -1,27 +1,21 @@
 import React, { Component } from "react";
 import { Form, Input } from "antd";
-import { PropTypes } from 'prop-types'
+import { PropTypes } from "prop-types";
 // 修改类目的标签
 class UpdateForm extends Component {
-  constructor(props){
-    super(props);
-  }
   static propTypes = {
-    categoryName:PropTypes.string,
-  }
-  UNSAFE_componentWillMount(){
-    
-  }
+    categoryName: PropTypes.string,
+  };
+  UNSAFE_componentWillMount() {}
   render() {
     const { categoryName } = this.props;
     return (
-      <Form ref={this.props.formValue} >
+      <Form ref={this.props.formValue} initialValues={{ categoryName }}>
         <Form.Item label="分类名称">
           <Form.Item
             noStyle
-            rules={[{ required: true, message: "Province is required" }]}
+            rules={[{ required: true, message: "请填写分类名称" }]}
             name="categoryName"
-            initialValue={categoryName}
           >
             <Input placeholder="请输入分类名称"></Input>
           </Form.Item>

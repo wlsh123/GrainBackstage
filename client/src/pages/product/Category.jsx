@@ -32,7 +32,10 @@ class Category extends Component {
         render: (category) => (
           //返回需要显示的界面标签
           <span>
-            <LinkButton onClick={() => this.showUpdate(category)}>
+            <LinkButton
+              onClick={() => this.showUpdate(category)}
+              form={this.form}
+            >
               修改分类
             </LinkButton>
             {this.state.parentId === "0" ? (
@@ -86,7 +89,7 @@ class Category extends Component {
   };
   //响应点击取消：隐藏确认框
   handleCancel = () => {
-    this.form.setFieldsValue('')
+    this.form.setFieldsValue({ categoryName: this.category.name });
     this.setState({
       showStatus: 0,
     });
@@ -113,9 +116,8 @@ class Category extends Component {
       showStatus: 0,
     });
     const categoryId = this.category._id;
-    const categoryName = this.form.getFieldValue('categoryName');
-    // console.log(this.form.getFieldValue('categoryName'))
-    this.form.setFieldsValue('')
+    const categoryName = this.form.getFieldValue("categoryName");
+    this.form.setFieldsValue({ categoryName: this.category.name });
     //2.发请求更新数据
     const result = await reqUpdateCategory({ categoryId, categoryName });
     if (result.data.status === 0) {
@@ -186,12 +188,16 @@ class Category extends Component {
             onOk={this.updateCategory}
             onCancel={this.handleCancel}
           >
-            <UpdateForm categoryName={category.name} formValue={(e)=>{this.form = e}}/>
+            <UpdateForm
+              categoryName={category.name}
+              formValue={(e) => {
+                this.form = e;
+              }}
+            />
           </Modal>
         </Card>
       </div>
     );
   }
 }
-
 export default Category;
