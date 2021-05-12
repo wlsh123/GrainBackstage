@@ -37,3 +37,6 @@ export const reqUpdateCategory = ({ categoryId, categoryName }) =>
 //商品分页列表
 export const reqProduct = (pageNum, pageSize) =>
   ajax("/api/manage/product/list", { pageNum, pageSize });
+//商品分页搜索   searchType-搜素的类型， productName/productDesc
+export const reqSearchProduct = ({ pageNum, pageSize, searchName, searchType}) =>
+  ajax("/api/manage/product/search", {pageNum, pageSize, [searchType]:searchName})

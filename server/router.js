@@ -84,13 +84,12 @@ router.get(productBase + "/list", (req, res) => {
     res.send("接口请求出错");
   }
 });
-router.post("/register", (req, res) => {
-  console.log(req.body);
-  let { name, age } = req.body;
-  if (name === "zs" && age === "12") {
-    res.send("注册成功");
+router.get(productBase + "/search", (req, res) => {
+  if (product) {
+    // let data = category.data;
+    res.send(product.data);
   } else {
-    res.send("注册失败");
+    res.send("接口请求出错");
   }
 });
 module.exports = router;

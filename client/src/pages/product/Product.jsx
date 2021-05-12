@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import ProductDetail from "./product/ProductDetail";
 import ProductEdit from "./product/ProductEdit";
 import ProductHome from "./product/ProductHome";
+import './style/index.less'
 class Product extends Component {
   constructor(props) {
     super(props);
