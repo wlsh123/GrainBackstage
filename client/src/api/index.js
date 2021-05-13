@@ -39,4 +39,10 @@ export const reqProduct = (pageNum, pageSize) =>
   ajax("/api/manage/product/list", { pageNum, pageSize });
 //商品分页搜索   searchType-搜素的类型， productName/productDesc
 export const reqSearchProduct = ({ pageNum, pageSize, searchName, searchType}) =>
-  ajax("/api/manage/product/search", {pageNum, pageSize, [searchType]:searchName})
+  ajax("/api/manage/product/search", {pageNum, pageSize, [searchType]:searchName});
+//根据类目id查询类目
+export const reqCategory = (categoryId) => 
+  ajax("/api/manage/category/info", {categoryId});
+//商品上下架
+export const reqUpdateStatus = (productId, status) =>
+ ajax("/api/manage/product/updateStatus", {productId, status}, "POST");

@@ -9,7 +9,7 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import LinkButton from "../../../components/link-button";
-import { reqProduct, reqSearchProduct } from "../../../api";
+import { reqProduct, reqSearchProduct, reqUpdateStatus } from "../../../api";
 import {PAGE_SIZE} from "../../../utils/constants";
 class ProductHome extends Component {
   constructor(props) {
@@ -47,13 +47,19 @@ class ProductHome extends Component {
       {
         width: "80px",
         title: "状态",
-        dataIndex: "status",
+        //dataIndex: "status",
         key: "status",
-        render: (status) => {
+        render: (product) => {
+          const {status, _id} = product
           return (
             <span>
-              <span style={{margin: "0 10px" }}>在售</span>
-              <Button type="primary">下架</Button>
+              <span style={{margin: "0 10px"}}>{status === 1 ? "在售" : "停售"}</span>
+              <Button 
+                type="primary" 
+                onClick={()=>this.updateStatus(_id, status === 1 ? 2:1)}
+                >
+                {status === 1 ? "下架":"上架"}
+              </Button>
             </span>
           );
         },
@@ -74,8 +80,17 @@ class ProductHome extends Component {
       },
     ];
   };
+  //更新指定商品的状态
+  updateStatus = async (productId, status)=>{
+    const result = await reqUpdateStatus(productId, status)
+    if (result.status === 200) {
+      message.success('更新商品成功');
+      this.getProducts(this.pageNum);
+    }
+  }
   //获取指定页码的列表数据显示
   getProducts = async (pageNum) => {
+    this.pageNum = pageNum;
     const {searchName, searchType} = this.state
     this.setState({ loading: true });
     let result;

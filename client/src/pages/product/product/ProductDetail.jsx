@@ -2,15 +2,23 @@ import React, { Component } from "react";
 import { Card, List } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import LinkButton from '../../../components/link-button'
+import { reqCategory } from "../../../api";
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      categoryName:'',
+    };
+  }
+  async componentDidMount(){
+    const {categoryId} = this.props.location.state;
+    const result = await reqCategory(categoryId)
+    this.setState({categoryName:result.data.name})
   }
   render() {
     // 读取路由跳转携带过来的state属性
-    const { name, desc, price, imgs} = this.props.location.state;
-    console.log(this.props.location.state);
+    const { name, desc, price, imgs, detail} = this.props.location.state;
+    const { categoryName } = this.state;
     const title = (
       <span >
         <LinkButton>
@@ -34,15 +42,20 @@ class ProductDetail extends Component {
       </span>,
       <span>
         <span className="left">所属分类：</span>
-        <span>电脑---》笔记本</span>
+        <span>{categoryName}</span>
       </span>, 
       <span>
         <span className="left">商品图片：</span>
-        <span><img src="" alt="" className="product-img"/></span>
+        {
+          imgs.map(img=>(
+            <img src={img} alt="img" className="product-img" key={Math.random()*10}/>
+          ))
+        }
+        <span></span>
       </span>,
       <span>
         <span className="left">商品详情：</span>
-        <span dangerouslySetInnerHTML={{__html:'<h1 style="color: red">wqeqweq</h1>'}}></span>
+        <span dangerouslySetInnerHTML={{__html:detail}}></span>
       </span>
     ]
     return <div>

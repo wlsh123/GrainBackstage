@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("./data/login");
 const category = require("./data/category");
 const product = require("./data/product");
+const categoryInfo = require("./data/category/categoryInfo");
 const { json } = require("body-parser");
 router.post("/login", (req, res) => {
   // console.log(req.body);
@@ -92,4 +93,19 @@ router.get(productBase + "/search", (req, res) => {
     res.send("接口请求出错");
   }
 });
+router.get(categoryBase+"/info",(req,res) =>{
+  const {categoryId} = req.query;
+  const result = categoryInfo.filter(category => category._id == categoryId);
+  res.send(result[0]);
+})
+router.post(productBase+"/updateStatus", (req, res) =>{
+  const {productId,status} = req.body
+  const {list} = product.data;
+  list.forEach(element=>{
+    if (element._id === productId) {
+      element.status = status
+    }
+  })
+  res.send(product);
+})
 module.exports = router;
