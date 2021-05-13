@@ -8,7 +8,7 @@ module.exports = {
     list: [
       {
         status: 1,
-        img: [],
+        imgs: [],
         _id: "1",
         name: "测试商品",
         desc: "物美价廉",
@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         status: 1,
-        img: [],
+        imgs: [],
         _id: "2",
         name: "测试商品2",
         desc: "物美价廉2",
