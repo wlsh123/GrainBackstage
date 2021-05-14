@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Card, Form, Input, Button, Cascader } from "antd";
+import { Card, Form, Input, Button, Cascader} from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import LinkButton from '../../../components/link-button'
+import LinkButton from '../../../components/link-button';
+import UploadPicture from '../../../components/product/pictureUpload/UploadPicture';
 const { TextArea } = Input
 const options = [
   {
@@ -40,7 +41,8 @@ const options = [
 class ProductEdit extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
   submit = ()=>{
 
@@ -53,7 +55,7 @@ class ProductEdit extends Component {
         </LinkButton>
         <span>添加商品</span>
       </span>
-    )
+    );
     const layout = {
       labelCol: {//指定左侧label的宽度
         span: 1.5,
@@ -104,6 +106,7 @@ class ProductEdit extends Component {
             name="productPicture"
             rules={[{ required: true, message: '商品图片必填' }]}  
           >
+            <UploadPicture />
           </Form.Item>
           <Form.Item
             label="商品详情"
