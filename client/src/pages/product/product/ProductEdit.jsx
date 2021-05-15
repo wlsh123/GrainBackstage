@@ -3,6 +3,7 @@ import { Card, Form, Input, Button, Cascader} from "antd";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import LinkButton from '../../../components/link-button';
 import UploadPicture from '../../../components/product/pictureUpload/UploadPicture';
+import RichTextEditor from "../../../components/product/richTextEditor/RichTextEditor";
 const { TextArea } = Input
 const options = [
   {
@@ -61,12 +62,18 @@ class ProductEdit extends Component {
         span: 1.5,
       },
       wrapperCol: {//指定右侧包裹的宽度
-        span: 5,
+        span: 8,
       },
     };
     const tailLayout= {
       wrapperCol: {
         offset: 3,
+        span: 16,
+      }
+    };
+    const tailLayoutText = {
+      wrapperCol: {
+        offset: 0,
         span: 16,
       }
     };
@@ -111,8 +118,10 @@ class ProductEdit extends Component {
           <Form.Item
             label="商品详情"
             name="productDetail"
+            {...tailLayoutText}
             rules={[{ required: true, message: '商品详情必填' }]}  
           >
+            <RichTextEditor />
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" onClick={this.submit}>提交</Button>

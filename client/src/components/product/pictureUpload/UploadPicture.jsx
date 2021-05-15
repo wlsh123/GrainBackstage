@@ -29,7 +29,7 @@ class UploadPicture extends Component {
 
   handleCancel = () => this.setState({ previewVisible: false });
 
-  handlePreview = async file => {
+  handlePreview = async file => {/**预览大图 */
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -48,19 +48,19 @@ class UploadPicture extends Component {
     const uploadButton = (
       <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>Upload</div>
+        <div style={{ marginTop: 8 }}>上传图片</div>
       </div>
     );
     return (
       <>
         <Upload
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"/**上传图片的接口地址 */
+          listType="picture-card" /**卡片样式 */
+          fileList={fileList} /**已上传图片文件对象的数组 */
+          onPreview={this.handlePreview} 
           onChange={this.handleChange}
         >
-          {fileList.length >= 8 ? null : uploadButton}
+          {fileList.length >= 3 ? null : uploadButton}
         </Upload>
         <Modal
           visible={previewVisible}
