@@ -4,7 +4,9 @@ const data = require("./data/login");
 const category = require("./data/category");
 const product = require("./data/product");
 const categoryInfo = require("./data/category/categoryInfo");
+const roleInfo = require("./data/role/index");
 const { json } = require("body-parser");
+//登录
 router.post("/login", (req, res) => {
   // console.log(req.body);
   let { username, password } = req.body;
@@ -25,6 +27,7 @@ router.post("/login", (req, res) => {
   }
 });
 const categoryBase = "/manage/category";
+//获取类目列表
 router.get(categoryBase + "/list", (req, res) => {
   if (category) {
     // let data = category.data;
@@ -33,6 +36,7 @@ router.get(categoryBase + "/list", (req, res) => {
     res.send("接口请求出错");
   }
 });
+//更新类目
 router.post(categoryBase + "/update", (req, res) => {
   const { categoryId, categoryName } = req.body;
   const data1 = category.data1;
@@ -49,6 +53,7 @@ router.post(categoryBase + "/update", (req, res) => {
   });
   res.send(category);
 });
+//添加类目
 router.post(categoryBase + "/add", (req, res) => {
   const { categoryName, parentId } = req.body;
   if (parentId === "0") {
@@ -77,6 +82,7 @@ router.post(categoryBase + "/add", (req, res) => {
 });
 
 const productBase = "/manage/product";
+//获取商品列表
 router.get(productBase + "/list", (req, res) => {
   if (product) {
     // let data = category.data;
@@ -85,6 +91,7 @@ router.get(productBase + "/list", (req, res) => {
     res.send("接口请求出错");
   }
 });
+//搜索商品
 router.get(productBase + "/search", (req, res) => {
   if (product) {
     // let data = category.data;
@@ -93,11 +100,13 @@ router.get(productBase + "/search", (req, res) => {
     res.send("接口请求出错");
   }
 });
+//类目详情
 router.get(categoryBase+"/info",(req,res) =>{
   const {categoryId} = req.query;
   const result = categoryInfo.filter(category => category._id == categoryId);
   res.send(result[0]);
 })
+//更新商品信息
 router.post(productBase+"/updateStatus", (req, res) =>{
   const {productId,status} = req.body
   const {list} = product.data;
@@ -107,5 +116,25 @@ router.post(productBase+"/updateStatus", (req, res) =>{
     }
   })
   res.send(product);
+})
+const roleBase = "/manage/role"
+//获取角色列表
+router.get(roleBase + "/list", (req, res) => {
+  res.send(roleInfo);
+})
+//添加角色
+router.post(roleBase + "/add", (req,res) => {
+  const {roleName} = req.body;
+  const newRole = {
+    "menus":'',
+    "_id": (roleInfo.data.length+1).toString(),
+    "name": roleName,
+    "create_time": Date.now(),
+    "_v": 0,
+    "auth_time": "",
+    "auth_name": ""
+  }
+  roleInfo.data.unshift(newRole)
+  res.send(roleInfo);
 })
 module.exports = router;

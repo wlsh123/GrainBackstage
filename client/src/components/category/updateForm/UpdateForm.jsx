@@ -6,7 +6,6 @@ class UpdateForm extends Component {
   static propTypes = {
     categoryName: PropTypes.string,
   };
-  UNSAFE_componentWillMount() {}
   render() {
     const { categoryName } = this.props;
     return (

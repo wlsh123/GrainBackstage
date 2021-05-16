@@ -10,7 +10,7 @@ import {
 const menuList = [
   {
     title:'首页',
-    key:'/home',
+    key:"/home",
     icon: <AppstoreOutlined />
   },
   {
@@ -20,24 +20,24 @@ const menuList = [
     children:[
       {
         title: '品类管理',
-        key:'/category',
+        key:"/category",
         icon: <MenuFoldOutlined />
       },
       {
         title: '商品管理',
-        key:'/product',
+        key:"/product",
         icon: <PieChartOutlined />
       }
     ]
   },
   {
     title: '用户管理',
-    key: '/user',
+    key: "/user",
     icon: <DesktopOutlined />
   }, 
   {
     title: '角色管理',
-    key: '/role',
+    key: "/role",
     icon: <ContainerOutlined />
   },
   {
@@ -47,17 +47,17 @@ const menuList = [
     children: [
       {
         title: '柱形图',
-        key: '/bar',
+        key: "/bar",
         icon: <MenuFoldOutlined />
       },
       {
         title: '折线图',
-        key: '/line',
+        key: "/line",
         icon: <PieChartOutlined />
       }, 
       {
         title: '饼图',
-        key: '/pie',
+        key: "/pie",
         icon: <MailOutlined />
       }
     ]

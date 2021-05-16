@@ -46,3 +46,9 @@ export const reqCategory = (categoryId) =>
 //商品上下架
 export const reqUpdateStatus = (productId, status) =>
  ajax("/api/manage/product/updateStatus", {productId, status}, "POST");
+//获取所有角色列表
+export const reqRoles = () =>
+ ajax("/api/manage/role/list");
+//添加角色列表
+export const reqAddRoles = (roleName) =>
+  ajax("/api/manage/role/add",{roleName},"POST");
